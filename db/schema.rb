@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150224222520) do
+ActiveRecord::Schema.define(version: 20150224223141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,11 +35,13 @@ ActiveRecord::Schema.define(version: 20150224222520) do
     t.integer  "constitution"
     t.integer  "health"
     t.integer  "damage"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.integer  "party_id"
+    t.integer  "character_class_id"
   end
 
+  add_index "characters", ["character_class_id"], name: "index_characters_on_character_class_id", using: :btree
   add_index "characters", ["party_id"], name: "index_characters_on_party_id", using: :btree
 
   create_table "items", force: :cascade do |t|
@@ -93,6 +95,7 @@ ActiveRecord::Schema.define(version: 20150224222520) do
     t.datetime "updated_at",  null: false
   end
 
+  add_foreign_key "characters", "character_classes"
   add_foreign_key "characters", "parties"
   add_foreign_key "mounts", "characters"
 end
