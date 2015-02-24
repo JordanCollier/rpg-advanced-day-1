@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150224221929) do
+ActiveRecord::Schema.define(version: 20150224222520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,9 +73,12 @@ ActiveRecord::Schema.define(version: 20150224221929) do
     t.string   "name"
     t.string   "species"
     t.boolean  "flying"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "character_id"
   end
+
+  add_index "mounts", ["character_id"], name: "index_mounts_on_character_id", using: :btree
 
   create_table "parties", force: :cascade do |t|
     t.string   "name"
@@ -91,4 +94,5 @@ ActiveRecord::Schema.define(version: 20150224221929) do
   end
 
   add_foreign_key "characters", "parties"
+  add_foreign_key "mounts", "characters"
 end
